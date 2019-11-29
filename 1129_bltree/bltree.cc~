@@ -213,7 +213,9 @@ move_right(NODE *node, int key)
       if (prev && prev_hk >= key) {	DDD(prev_hk);	DDD(key);	ERR;}
 
       next = curr->right_link; // cache
+      lock(next); 
       if (curr->high_key < key) {
+        unlock(curr); 
 				prev_hk = curr->high_key;
 				prev = curr;
         curr = next;
@@ -252,6 +254,7 @@ insert_in_parent(NODE *lc, int lm_key, NODE *rc)
 	}
 
 	left_parent = left_child->parent;
+  lock(left_parent);
   left_parent = move_right(left_parent, lm_key);
 
 	if (left_parent->nkey < N-1) {
@@ -276,6 +279,7 @@ insert_in_parent(NODE *lc, int lm_key, NODE *rc)
     left_parent->right_link = right_parent;
 
 		
+		unlock(left_child);
 		// Parent
 		insert_in_parent(left_parent, left_parent->high_key, right_parent);
 	}
@@ -287,6 +291,7 @@ insert(int key, DATA *data)
 	NODE *leaf;
 
 	leaf = find_leaf(Root, key);
+	lock(leaf);
   leaf = move_right(leaf, key);
 	
 	if (leaf->nkey < (N-1)) {
