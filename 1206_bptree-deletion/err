@@ -1,0 +1,29 @@
+g++ -g -c -Wall -O0 -DDELETE -DDEBUG bptree.cc
+bptree.cc:796:3: error: expected initializer before ‘if’
+   if (argc == 2) Size_data = atoi(argv[1]);
+   ^~
+bptree.cc:797:3: error: expected unqualified-id before ‘for’
+   for (int i = Size_data; i >= 0; i--) {
+   ^~~
+bptree.cc:797:27: error: ‘i’ does not name a type
+   for (int i = Size_data; i >= 0; i--) {
+                           ^
+bptree.cc:797:35: error: ‘i’ does not name a type
+   for (int i = Size_data; i >= 0; i--) {
+                                   ^
+bptree.cc:801:13: error: expected constructor, destructor, or type conversion before ‘(’ token
+   print_tree(Root);
+             ^
+bptree.cc:803:3: error: expected unqualified-id before ‘while’
+   while (true) {
+   ^~~~~
+In file included from bptree.h:8:0,
+                 from bptree.cc:1:
+debug.h:8:17: error: expected unqualified-id before ‘do’
+ #define ERR     do {perror("ERROR"); NNN; exit(1);} while (0)
+                 ^
+bptree.cc:820:3: note: in expansion of macro ‘ERR’
+   ERR;
+   ^~~
+Makefile:15: ターゲット 'bptree.o' のレシピで失敗しました
+make: *** [bptree.o] エラー 1
